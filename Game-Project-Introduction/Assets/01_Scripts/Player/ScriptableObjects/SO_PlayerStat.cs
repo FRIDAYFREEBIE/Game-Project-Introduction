@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPlayerStat", menuName = "Player/Stat")]
 public class SO_PlayerStat : ScriptableObject
 {
-   public float moveSpeed = 5f;   // 이동 속도
-   public float jumpForce = 10f;  // 점프력  
+   public float moveSpeed = 8f;   // 이동 속도
+   // public float jumpForce = 10f;  // 점프력  
 }
