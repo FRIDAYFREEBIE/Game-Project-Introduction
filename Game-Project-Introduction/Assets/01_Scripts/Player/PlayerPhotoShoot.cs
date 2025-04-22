@@ -12,6 +12,9 @@ public class PlayerPhotoShoot : MonoBehaviour
   public GameObject DisplayEntryLocation;   // 진입 위치 표시 UI
   public GameObject DisplayEscapeLocation;  // 탈출 위치 표시 UI
 
+  [Header("오브젝트 감지")]
+  public SO_DetectedObjects detectedObjects;
+
   float shootCooldown = 2f; // 사진 촬영 쿨타임
   float lastShootTime = -999f;
   Camera mainCam;
@@ -44,6 +47,8 @@ public class PlayerPhotoShoot : MonoBehaviour
     if(entryFound.Length > 0){
       foreach(var obj in entryFound){
         Debug.Log("진입 위치 촬영 " + obj.name);
+        DectectedObjectBase dectectedObjectBase = obj.GetComponent<DectectedObjectBase>();
+        detectedObjects.RegisterDetection(dectectedObjectBase.objectType,dectectedObjectBase.objectID);
         DisplayImageUI displayImage = DisplayEntryLocation.GetComponent<DisplayImageUI>();
         displayImage.Display();
       }
@@ -53,7 +58,9 @@ public class PlayerPhotoShoot : MonoBehaviour
     if(escapeFound.Length > 0){
       foreach(var obj in escapeFound){
         Debug.Log("탈출 위치 촬영 " + obj.name);
-        DisplayImageUI displayImage = DisplayEscapeLocation.GetComponent<DisplayImageUI>();
+        DectectedObjectBase dectectedObjectBase = obj.GetComponent<DectectedObjectBase>();
+        detectedObjects.RegisterDetection(dectectedObjectBase.objectType,dectectedObjectBase.objectID);
+        DisplayImageUI displayImage = DisplayEntryLocation.GetComponent<DisplayImageUI>();
         displayImage.Display();
       }
     }

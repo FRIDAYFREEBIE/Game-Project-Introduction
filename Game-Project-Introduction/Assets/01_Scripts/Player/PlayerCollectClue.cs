@@ -7,6 +7,9 @@ public class PlayerCollectClue : MonoBehaviour
   public Vector2 boxSize = new Vector2(0f, 0f);
   public GameObject displayClue;
 
+  [Header("오브젝트 감지")]
+  public SO_DetectedObjects detectedObjects;
+
   private void Update()
   {
     if(Input.GetKeyDown(KeyCode.F)){
@@ -17,6 +20,8 @@ public class PlayerCollectClue : MonoBehaviour
       if(clues.Length > 0){
         foreach(var clue in clues){
           Debug.Log("단서 발견 " + clue.name);
+          DectectedObjectBase dectectedObjectBase = clue.GetComponent<DectectedObjectBase>();
+          detectedObjects.RegisterDetection(dectectedObjectBase.objectType,dectectedObjectBase.objectID);
           DisplayImageUI displayImage = displayClue.GetComponent<DisplayImageUI>();
           displayImage.Display();
         }

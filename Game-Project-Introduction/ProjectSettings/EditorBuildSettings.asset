@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/00_Scenes/Prototype/ResearchScene.unity
+    path: Assets/00_Scenes/ResearchScene.unity
     guid: 38bdfdae680005c4a8f1b147236f6086
   - enabled: 1
-    path: Assets/00_Scenes/Prototype/TableScene.unity
+    path: Assets/00_Scenes/TableScene.unity
     guid: 55ca79c91aa18c241841f6bd60f84bc1
   - enabled: 1
-    path: Assets/00_Scenes/Prototype/InfiltrationScene.unity
+    path: Assets/00_Scenes/InfiltrationScene.unity
     guid: cc368755abb01a949b997fdc6c001a31
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
