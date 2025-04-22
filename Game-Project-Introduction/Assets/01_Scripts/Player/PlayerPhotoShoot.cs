@@ -44,7 +44,7 @@ public class PlayerPhotoShoot : MonoBehaviour
     if(entryFound.Length > 0){
       foreach(var obj in entryFound){
         Debug.Log("진입 위치 촬영 " + obj.name);
-        DisplayImage displayImage = DisplayEntryLocation.GetComponent<DisplayImage>();
+        DisplayImageUI displayImage = DisplayEntryLocation.GetComponent<DisplayImageUI>();
         displayImage.Display();
       }
     }
@@ -53,7 +53,7 @@ public class PlayerPhotoShoot : MonoBehaviour
     if(escapeFound.Length > 0){
       foreach(var obj in escapeFound){
         Debug.Log("탈출 위치 촬영 " + obj.name);
-        DisplayImage displayImage = DisplayEscapeLocation.GetComponent<DisplayImage>();
+        DisplayImageUI displayImage = DisplayEscapeLocation.GetComponent<DisplayImageUI>();
         displayImage.Display();
       }
     }

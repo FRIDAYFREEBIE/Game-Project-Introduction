@@ -7,10 +7,12 @@ public abstract class PlayerDetectorBase : MonoBehaviour
   public Vector2 boxSize = new Vector2(1f, 1f);
   public Vector2 boxOffset = Vector2.zero;
 
+  protected Collider2D player;
+
   protected virtual void Update()
   {
     Vector2 boxCenter = (Vector2)transform.position + boxOffset;
-    Collider2D player = Physics2D.OverlapBox(boxCenter, boxSize, 0f, playerLayer);
+    player = Physics2D.OverlapBox(boxCenter, boxSize, 0f, playerLayer);
 
     if(player != null) OnPlayerDetected();
     else OnPlayerExit();

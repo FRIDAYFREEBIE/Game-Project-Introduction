@@ -5,7 +5,7 @@ public class PlayerListenNPC : MonoBehaviour
   [Header("NPC 탐지")]
   public LayerMask NPCLayer;  
   public Vector2 boxSize = new Vector2(0f, 0f);
-  public Dialog dialog;
+  public DialogUI dialog;
 
   private void Update()
   {

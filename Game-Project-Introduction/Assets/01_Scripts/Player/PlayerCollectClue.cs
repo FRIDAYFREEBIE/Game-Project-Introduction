@@ -17,7 +17,7 @@ public class PlayerCollectClue : MonoBehaviour
       if(clues.Length > 0){
         foreach(var clue in clues){
           Debug.Log("단서 발견 " + clue.name);
-          DisplayImage displayImage = displayClue.GetComponent<DisplayImage>();
+          DisplayImageUI displayImage = displayClue.GetComponent<DisplayImageUI>();
           displayImage.Display();
         }
       }
