@@ -11,6 +11,12 @@ public abstract class PlayerDetectorBase : MonoBehaviour
 
   protected virtual void Update()
   {
+    if(PlayerMovement.IsClingingToWall){
+      player = null;
+      OnPlayerExit();
+      return;
+    }
+
     Vector2 boxCenter = (Vector2)transform.position + boxOffset;
     player = Physics2D.OverlapBox(boxCenter, boxSize, 0f, playerLayer);
 
@@ -18,10 +24,7 @@ public abstract class PlayerDetectorBase : MonoBehaviour
     else OnPlayerExit();
   }
 
-  // 플레이어 감지
   protected abstract void OnPlayerDetected();
-
-  // 플레이어 감지 헤제
   protected abstract void OnPlayerExit();
 
   private void OnDrawGizmosSelected()

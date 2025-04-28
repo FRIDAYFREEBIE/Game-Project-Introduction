@@ -1,4 +1,3 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,24 +7,26 @@ public class PlayerGetTarget : MonoBehaviour
   public bool isResearchStep = true;
 
   [Header("목표 탐지")]
-  public LayerMask clueLayer;  
-  public Vector2 boxSize = new Vector2(0f, 0f);
+  public LayerMask clueLayer;
+  public Vector2 boxSize = new Vector2(1f, 1f);
 
   [Header("타이머")]
   public TimerManager timerManager;
 
   private void Update()
   {
+    // 목표물 수집
     if(Input.GetKeyDown(KeyCode.F)){
       Vector2 boxCenter = (Vector2)transform.position;
+      Collider2D target = Detector.Detect(boxCenter, boxSize, clueLayer);
 
-      Collider2D target = Physics2D.OverlapBox(boxCenter, boxSize, 0f, clueLayer);
-
-      if(target != null && !isResearchStep && timerManager != null){
-        if(timerManager.isClear()) Debug.Log("클리어");
-        else Debug.Log("클리어 실패");
+      if(target != null){
+        if(isResearchStep) SceneManager.LoadScene("TableScene");
+        else if(timerManager != null){
+          if(timerManager.isClear()) Debug.Log("클리어 성공");
+          else Debug.Log("클리어 실패");
+        }
       }
-      else if(target != null && isResearchStep) SceneManager.LoadScene("TableScene");
     }
   }
 }

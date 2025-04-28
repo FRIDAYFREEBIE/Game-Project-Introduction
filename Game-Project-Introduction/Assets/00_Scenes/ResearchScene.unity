@@ -1965,7 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ef1118aadaa5544b2c52d170adb17b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCLayer:
+  npcLayer:
     serializedVersion: 2
     m_Bits: 1024
   boxSize: {x: 7, y: 3}
@@ -2007,8 +2007,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   photoShootEffect: {fileID: 98860624}
-  DisplayEntryLocation: {fileID: 1888788195}
-  DisplayEscapeLocation: {fileID: 257903444}
+  displayEntryLocation: {fileID: 1888788195}
+  displayEscapeLocation: {fileID: 257903444}
   detectedObjects: {fileID: 11400000, guid: 800d44ae33ecff44bb61e392a1fb551f, type: 2}
 --- !u!114 &868036156
 MonoBehaviour:

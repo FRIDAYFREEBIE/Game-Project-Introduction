@@ -1,15 +1,16 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-
-// 플에이어 이동 (임시)
 public class PlayerMovement : MonoBehaviour
 {
   [Header("플레이어 스탯")]
   public SO_PlayerStat playerStats;
 
+  public static bool IsClingingToWall { get; private set; }
+
   private Rigidbody2D rb;
   private Vector2 moveDirection;
+  private bool isClingingToWall = false;
 
   private void Start()
   {
@@ -18,13 +19,23 @@ public class PlayerMovement : MonoBehaviour
 
   private void Update()
   {
-    moveDirection.x = Input.GetAxisRaw("Horizontal"); // A, D
+    moveDirection.x = Input.GetAxisRaw("Horizontal");
     moveDirection.y = 0f;
+
+    if(Input.GetKeyDown(KeyCode.X)){
+      isClingingToWall = !isClingingToWall;
+      IsClingingToWall = isClingingToWall;
+    }
   }
 
   private void FixedUpdate()
   {
-    // 이동
-    rb.linearVelocity = new Vector2(moveDirection.x * playerStats.moveSpeed, rb.linearVelocity.y);
+    float speed = playerStats.moveSpeed;
+    if(isClingingToWall){
+      speed *= 0.5f;
+    }
+
+    Vector2 nextPosition = rb.position + new Vector2(moveDirection.x * speed * Time.fixedDeltaTime, 0f);
+    rb.MovePosition(nextPosition);
   }
 }

@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44e4e4500e8fc74ebfb5d973b1b9a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadSceneName: InfiltrationScene
+  loadSceneName: NoticeScene
 --- !u!1 &248315374
 GameObject:
   m_ObjectHideFlags: 0

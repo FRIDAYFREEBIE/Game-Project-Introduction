@@ -63,10 +63,13 @@ public class CCTVBehavior : PlayerDetectorBase
 
   private bool IsPlayerInSight()
   {
+    if(PlayerMovement.IsClingingToWall) return false;
+
     Vector2 boxCenter = (Vector2)transform.position + viewOffset;
     Collider2D playerCollider = Physics2D.OverlapBox(boxCenter, viewSize, currentAngle, playerLayer);
     return playerCollider != null;
   }
+
 
   void OnDrawGizmos()
   {

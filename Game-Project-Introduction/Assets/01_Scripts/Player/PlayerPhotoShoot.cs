@@ -1,23 +1,22 @@
 using UnityEngine;
 
-// 진입 위치 및 탈출 위치 사진 촬영
 public class PlayerPhotoShoot : MonoBehaviour
 {
   [Header("진입/탈출 위치 레이어")]
-  public LayerMask entryLocationLayer;   // 진입 위치 레이어 마스크
-  public LayerMask escapeLocationLayer;  // 탈출 위치 레이어 마스크
+  public LayerMask entryLocationLayer;
+  public LayerMask escapeLocationLayer;
 
   [Header("사진 촬영 이펙트")]
-  public PhotoShootEffect photoShootEffect; // 사진 촬영 이펙트
-  public GameObject DisplayEntryLocation;   // 진입 위치 표시 UI
-  public GameObject DisplayEscapeLocation;  // 탈출 위치 표시 UI
+  public PhotoShootEffect photoShootEffect;
+  public GameObject displayEntryLocation;
+  public GameObject displayEscapeLocation;
 
   [Header("오브젝트 감지")]
   public SO_DetectedObjects detectedObjects;
 
-  float shootCooldown = 2f; // 사진 촬영 쿨타임
-  float lastShootTime = -999f;
-  Camera mainCam;
+  private float shootCooldown = 2f;
+  private float lastShootTime = -999f;
+  private Camera mainCam;
 
   private void Start()
   {
@@ -26,7 +25,7 @@ public class PlayerPhotoShoot : MonoBehaviour
 
   private void Update()
   {
-    // C키를 눌러 사진 촬영
+    // 사진 촬영
     if(Input.GetKeyDown(KeyCode.C) && Time.time - lastShootTime >= shootCooldown){
       photoShootEffect.PhotoShoot();
       PhotoShoot();
@@ -34,34 +33,36 @@ public class PlayerPhotoShoot : MonoBehaviour
     }
   }
 
-  // 사진 촬영
   private void PhotoShoot()
   {
     Vector2 bottomLeft = mainCam.ViewportToWorldPoint(new Vector3(0, 0, mainCam.nearClipPlane));
     Vector2 topRight = mainCam.ViewportToWorldPoint(new Vector3(1, 1, mainCam.nearClipPlane));
 
-    Collider2D[] entryFound = Physics2D.OverlapAreaAll(bottomLeft, topRight, entryLocationLayer);
-    Collider2D[] escapeFound = Physics2D.OverlapAreaAll(bottomLeft, topRight, escapeLocationLayer);
+    Vector2 center = (bottomLeft + topRight) * 0.5f;
+    Vector2 size = topRight - bottomLeft;
 
-    // 진입 위치
+    Collider2D[] entryFound = Detector.DetectAll(center, size, entryLocationLayer);
+    Collider2D[] escapeFound = Detector.DetectAll(center, size, escapeLocationLayer);
+
     if(entryFound.Length > 0){
       foreach(var obj in entryFound){
-        Debug.Log("진입 위치 촬영 " + obj.name);
-        DectectedObjectBase dectectedObjectBase = obj.GetComponent<DectectedObjectBase>();
-        detectedObjects.RegisterDetection(dectectedObjectBase.objectType,dectectedObjectBase.objectID);
-        DisplayImageUI displayImage = DisplayEntryLocation.GetComponent<DisplayImageUI>();
-        displayImage.Display();
+        var detected = obj.GetComponent<DectectedObjectBase>();
+        if(detected != null){
+          detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
+          var displayImage = displayEntryLocation.GetComponent<DisplayImageUI>();
+          displayImage.Display();
+        }
       }
     }
 
-    // 탈출 위치
     if(escapeFound.Length > 0){
       foreach(var obj in escapeFound){
-        Debug.Log("탈출 위치 촬영 " + obj.name);
-        DectectedObjectBase dectectedObjectBase = obj.GetComponent<DectectedObjectBase>();
-        detectedObjects.RegisterDetection(dectectedObjectBase.objectType,dectectedObjectBase.objectID);
-        DisplayImageUI displayImage = DisplayEntryLocation.GetComponent<DisplayImageUI>();
-        displayImage.Display();
+        var detected = obj.GetComponent<DectectedObjectBase>();
+        if(detected != null){
+          detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
+          var displayImage = displayEscapeLocation.GetComponent<DisplayImageUI>();
+          displayImage.Display();
+        }
       }
     }
   }

@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00_Scenes/InfiltrationScene.unity
     guid: cc368755abb01a949b997fdc6c001a31
+  - enabled: 1
+    path: Assets/00_Scenes/NoticeScene.unity
+    guid: cd5ee49e0e9d00b4185d5b06bad09285
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
