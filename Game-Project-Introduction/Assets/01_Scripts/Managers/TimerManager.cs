@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine;
 
 public class TimerManager : MonoBehaviour
@@ -12,7 +11,6 @@ public class TimerManager : MonoBehaviour
 
   private void Start()
   {
-    timerInfo.time = 15f;
     currentTime = 0f;
   }
 
@@ -22,7 +20,6 @@ public class TimerManager : MonoBehaviour
     else Debug.Log("클리어 실패");
   }
 
-  // 성공
   public bool isClear()
   {
     if(currentTime <= timerInfo.time + timeOffset && currentTime >= timerInfo.time - timeOffset) return true;
