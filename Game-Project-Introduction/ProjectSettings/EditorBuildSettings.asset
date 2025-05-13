@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00_Scenes/InfiltrationScene.unity
     guid: cc368755abb01a949b997fdc6c001a31
+  - enabled: 1
+    path: Assets/00_Scenes/PlanTableScene.unity
+    guid: 2ca2222b931f53a439761b05513a7d0c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

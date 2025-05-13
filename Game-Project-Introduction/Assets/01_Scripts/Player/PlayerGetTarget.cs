@@ -20,6 +20,7 @@ public class PlayerGetTarget : MonoBehaviour
       Vector2 boxCenter = (Vector2)transform.position;
       Collider2D target = Detector.Detect(boxCenter, boxSize, clueLayer);
 
+      Debug.Log("ㅇ");
       if(target != null){
         if(isResearchStep) SceneManager.LoadScene("TableScene");
         else if(timerManager != null){
