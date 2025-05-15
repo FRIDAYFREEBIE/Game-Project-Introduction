@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class CCTVBehavior : PlayerDetectorBase
 {
-  [Header("단계 표시")]
-  public bool isResearchStep = true;
-
   public float rotationSpeed = 30f;
   public float waitTimeAtAngle = 1f;
   private float currentAngle = 0f;
@@ -33,7 +30,7 @@ public class CCTVBehavior : PlayerDetectorBase
     if(detectedPlayer != null) 
     {
       playerDetectionTimer += Time.deltaTime;
-      if(playerDetectionTimer >= 2f && !isResearchStep) OnPlayerDetected();
+      if(playerDetectionTimer >= 2f) OnPlayerDetected();
     }
     else playerDetectionTimer = 0f;
   }
@@ -96,9 +93,10 @@ public class CCTVBehavior : PlayerDetectorBase
       }
 
       playerDetectionTimer += Time.deltaTime;
-      if(playerDetectionTimer >= 2f)
+      if(playerDetectionTimer >= 2f && !isResearchStep)
       {
         Debug.Log("2초 이상 감지됨");
+        GameManager.GameOver();
       }
     }
     else detectedPlayer = null;

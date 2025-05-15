@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class PlayerPhotoShoot : MonoBehaviour
 {
-  [Header("진입/탈출 위치 레이어")]
+  [Header("오브젝트 레이어")]
   public LayerMask entryLocationLayer;
   public LayerMask escapeLocationLayer;
+  public LayerMask targetLayer;
 
   [Header("사진 촬영 이펙트")]
   public PhotoShootEffect photoShootEffect;
   public GameObject displayEntryLocation;
   public GameObject displayEscapeLocation;
+  public GameObject displayTarget;
 
   [Header("오브젝트 감지")]
   public SO_DetectedObjects detectedObjects;
@@ -43,6 +45,7 @@ public class PlayerPhotoShoot : MonoBehaviour
 
     Collider2D[] entryFound = Detector.DetectAll(center, size, entryLocationLayer);
     Collider2D[] escapeFound = Detector.DetectAll(center, size, escapeLocationLayer);
+    Collider2D[] targetFound = Detector.DetectAll(center, size, targetLayer);
 
     if(entryFound.Length > 0){
       foreach(var obj in entryFound){
@@ -61,6 +64,17 @@ public class PlayerPhotoShoot : MonoBehaviour
         if(detected != null){
           detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
           var displayImage = displayEscapeLocation.GetComponent<DisplayImageUI>();
+          displayImage.Display();
+        }
+      }
+    }
+
+    if(targetFound.Length > 0){
+      foreach(var obj in targetFound){
+        var detected = obj.GetComponent<DectectedObjectBase>();
+        if(detected != null){
+          detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
+          var displayImage = displayTarget.GetComponent<DisplayImageUI>();
           displayImage.Display();
         }
       }

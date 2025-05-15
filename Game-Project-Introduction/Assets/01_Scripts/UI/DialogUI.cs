@@ -29,9 +29,6 @@ public class DialogUI : MonoBehaviour
 
   public void NextLine()
   {
-    Debug.Log("NextLine");
-
-
     if(currentLine < text.Count - 1){
       currentLine++;
       textMeshPro.text = text[currentLine];

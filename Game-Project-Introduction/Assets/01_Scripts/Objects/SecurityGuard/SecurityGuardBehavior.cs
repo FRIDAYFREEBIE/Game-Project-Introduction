@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class SecurityGuardBehavior : PlayerDetectorBase
 {
-  [Header("단계 표시")]
-  public bool isResearchStep = true;
-
   [Header("적 이동")]
   public float moveSpeed = 2f;
   public Vector2 patrolPoint1;
@@ -26,7 +23,7 @@ public class SecurityGuardBehavior : PlayerDetectorBase
   {
     base.Update();
 
-    if (IsPlayerInSight() && !isResearchStep) MoveTowardsPlayer(detectedPlayer.transform);
+    if (IsPlayerInSight()) MoveTowardsPlayer(detectedPlayer.transform);
     else Patrol();
   }
 
@@ -67,7 +64,7 @@ public class SecurityGuardBehavior : PlayerDetectorBase
       viewSize.x = -viewSize.x;
     }
 
-    Collider2D playerCollider = Physics2D.OverlapBox(boxCenter, viewSize, 0f, playerLayer);
+    Collider2D playerCollider = Physics2D.OverlapBox(boxCenter, viewSize, 0f);
 
     return playerCollider != null;
   }
@@ -95,5 +92,10 @@ public class SecurityGuardBehavior : PlayerDetectorBase
     {
       Gizmos.DrawWireCube(boxCenter, viewSize);
     }
+  }
+
+  void OnCollisionEnter2D(Collision2D other)
+  {
+    if(other.collider.CompareTag("Player")) GameManager.GameOver();
   }
 }

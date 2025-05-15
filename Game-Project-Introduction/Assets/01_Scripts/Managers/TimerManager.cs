@@ -6,12 +6,12 @@ public class TimerManager : MonoBehaviour
   public SO_TimerInfo timerInfo;
   public float timeOffset = 0f;
 
-  [HideInInspector]
   public float currentTime = 0f;
 
   private void Start()
   {
     currentTime = 0f;
+    Debug.Log(timerInfo.time);
   }
 
   private void Update()

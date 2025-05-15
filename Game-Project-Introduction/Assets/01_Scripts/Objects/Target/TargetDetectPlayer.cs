@@ -7,11 +7,11 @@ public class TargetDetectPlayer : PlayerDetectorBase
 
   protected override void OnPlayerDetected()
   {
-    button.SetActive(true);
+    if(!isResearchStep) button.SetActive(true);
   }
 
   protected override void OnPlayerExit()
   {
-    button.SetActive(false);
+    if(!isResearchStep) button.SetActive(false);
   }
 }

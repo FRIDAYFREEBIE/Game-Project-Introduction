@@ -4,7 +4,8 @@ public enum ObjectType
 {
   Entry,
   Escape,
-  Clue
+  Clue,
+  Target
 }
 
 public class DectectedObjectBase : MonoBehaviour

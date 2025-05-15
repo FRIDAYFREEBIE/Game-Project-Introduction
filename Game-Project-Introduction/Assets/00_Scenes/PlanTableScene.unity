@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 208864972}
   - component: {fileID: 208864971}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Entry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1121,9 +1121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectedObjects: {fileID: 11400000, guid: 800d44ae33ecff44bb61e392a1fb551f, type: 2}
-  entry1: {fileID: 915812540}
-  entry2: {fileID: 1610989965}
+  entry: {fileID: 915812540}
   escape: {fileID: 220804205}
+  target: {fileID: 1404391366}
 --- !u!1 &907387456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,7 +2041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018621051}
   m_Layer: 5
-  m_Name: Entry 1
+  m_Name: Entry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,6 +2,9 @@ using UnityEngine;
 
 public abstract class PlayerDetectorBase : MonoBehaviour
 {
+  [Header("단계 표시")]
+  public bool isResearchStep = true;
+
   [Header("플레이어 탐지")]
   public LayerMask playerLayer;
   public Vector2 boxSize = new Vector2(1f, 1f);
