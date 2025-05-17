@@ -17,6 +17,7 @@ public class PlayerOpenDoor : MonoBehaviour
       {
         DoorDetectPlayer doorDetectPlayer = target.gameObject.GetComponent<DoorDetectPlayer>();
         doorDetectPlayer.PlayerOpenDoor(transform);
+        Debug.Log("문 탐지");
       }
     }
   }
