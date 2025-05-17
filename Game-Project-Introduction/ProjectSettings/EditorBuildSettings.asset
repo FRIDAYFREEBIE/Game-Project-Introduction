@@ -26,6 +26,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00_Scenes/ClearScene.unity
     guid: aae98bf2fb4630f4e8f18d1a7e7a55a9
+  - enabled: 1
+    path: Assets/00_Scenes/Doors/Door1.unity
+    guid: 3e4795559c309a6468874d8fbfacebac
+  - enabled: 1
+    path: Assets/00_Scenes/Doors/Door2.unity
+    guid: dff628eb0e77ede458543baef0f5a4ec
+  - enabled: 1
+    path: Assets/00_Scenes/Doors/Door3.unity
+    guid: 1ece1c2e17a364c4887c281fad5c4348
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
