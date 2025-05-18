@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1501ce90539d97f47860dd87e8d791dc, type: 3}
   m_Name: PathObjects
   m_EditorClassIdentifier: 
-  entryId: -1
-  escapeId: -1
+  entryId: 0
+  escapeId: 0

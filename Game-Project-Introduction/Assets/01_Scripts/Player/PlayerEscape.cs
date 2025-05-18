@@ -5,19 +5,23 @@ public class PlayerEscape : MonoBehaviour
   [Header("목표 탐지")]
   public LayerMask escapeLayer;
   public Vector2 boxSize = new Vector2(1f, 1f);
-    public TimerManager timerManager;
+  public TimerManager timerManager;
+  public SO_SelectedPath selectedPath;
 
   private void Update()
   {
-    if(Input.GetKeyDown(KeyCode.F)){
+    if (Input.GetKeyDown(KeyCode.F))
+    {
       Vector2 boxCenter = (Vector2)transform.position;
       Collider2D target = Detector.Detect(boxCenter, boxSize, escapeLayer);
 
-      if(target != null && GameManager.ReturnGetTarget() && timerManager.isClear()) GameManager.GameClear();
+      if(target != null){
+        DectectedObjectBase dectectedObjectBase = target.GetComponent<DectectedObjectBase>();
+        if(GameManager.ReturnGetTarget() && timerManager.isClear() && dectectedObjectBase.objectID == selectedPath.escapeId) GameManager.GameClear();
+        Debug.Log(dectectedObjectBase.objectID);
+        Debug.Log(selectedPath.escapeId);
+      }
 
-      Debug.Log(target != null);
-      Debug.Log(GameManager.ReturnGetTarget());
-      Debug.Log(timerManager.isClear());
     }
   }
 
