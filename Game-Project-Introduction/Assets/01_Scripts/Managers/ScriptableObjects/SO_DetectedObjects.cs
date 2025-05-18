@@ -4,22 +4,22 @@ using UnityEngine;
 public class SO_DetectedObjects : ScriptableObject
 {
   [Header("감지 상태")]
-  public bool isEntryDetected = false;
-  public bool isEscapeDetected = false;
+  public bool isPath1Detected = false;
+  public bool isPath2Detected = false;
   public bool isTargetDetected = false;
 
   public void RegisterDetection(ObjectType type, int id)
   {
-    if(type == ObjectType.Entry) isEntryDetected = true;
-    else if(type == ObjectType.Escape) isEscapeDetected = true;
-    else if(type == ObjectType.Target) isTargetDetected = true;
+    if(type == ObjectType.Target && id == 0) isTargetDetected = true;
+    if(type == ObjectType.Path && id == 0) isPath1Detected = true;
+    if(type == ObjectType.Path && id == 1) isPath2Detected = true;
   }
 
   public bool IsDetected(ObjectType type, int id)
   {
-    if(type == ObjectType.Entry) return isEntryDetected;
-    else if(type == ObjectType.Escape) return isEscapeDetected;
-    else if(type == ObjectType.Target) return isTargetDetected;
+    if(type == ObjectType.Target && id == 0) return isTargetDetected;
+    if(type == ObjectType.Path && id == 0) return isPath1Detected;
+    if(type == ObjectType.Path && id == 1) return isPath2Detected;
 
     return false;
   }

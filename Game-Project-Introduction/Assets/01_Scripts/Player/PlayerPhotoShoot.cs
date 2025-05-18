@@ -3,14 +3,12 @@ using UnityEngine;
 public class PlayerPhotoShoot : MonoBehaviour
 {
   [Header("오브젝트 레이어")]
-  public LayerMask entryLocationLayer;
-  public LayerMask escapeLocationLayer;
+  public LayerMask PathLayer;
   public LayerMask targetLayer;
 
   [Header("사진 촬영 이펙트")]
   public PhotoShootEffect photoShootEffect;
-  public GameObject displayEntryLocation;
-  public GameObject displayEscapeLocation;
+  public GameObject displayPath;
   public GameObject displayTarget;
 
   [Header("오브젝트 감지")]
@@ -43,27 +41,15 @@ public class PlayerPhotoShoot : MonoBehaviour
     Vector2 center = (bottomLeft + topRight) * 0.5f;
     Vector2 size = topRight - bottomLeft;
 
-    Collider2D[] entryFound = Detector.DetectAll(center, size, entryLocationLayer);
-    Collider2D[] escapeFound = Detector.DetectAll(center, size, escapeLocationLayer);
+    Collider2D[] pathFound = Detector.DetectAll(center, size, PathLayer);
     Collider2D[] targetFound = Detector.DetectAll(center, size, targetLayer);
 
-    if(entryFound.Length > 0){
-      foreach(var obj in entryFound){
+    if(pathFound.Length > 0){
+      foreach(var obj in pathFound){
         var detected = obj.GetComponent<DectectedObjectBase>();
         if(detected != null){
           detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
-          var displayImage = displayEntryLocation.GetComponent<DisplayImageUI>();
-          displayImage.Display();
-        }
-      }
-    }
-
-    if(escapeFound.Length > 0){
-      foreach(var obj in escapeFound){
-        var detected = obj.GetComponent<DectectedObjectBase>();
-        if(detected != null){
-          detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
-          var displayImage = displayEscapeLocation.GetComponent<DisplayImageUI>();
+          var displayImage = displayPath.GetComponent<DisplayImageUI>();
           displayImage.Display();
         }
       }
@@ -72,10 +58,13 @@ public class PlayerPhotoShoot : MonoBehaviour
     if(targetFound.Length > 0){
       foreach(var obj in targetFound){
         var detected = obj.GetComponent<DectectedObjectBase>();
-        if(detected != null){
+        if (detected != null)
+        {
           detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
           var displayImage = displayTarget.GetComponent<DisplayImageUI>();
           displayImage.Display();
+          Debug.Log(detected.objectType);
+          Debug.Log(detected.objectID);
         }
       }
     }

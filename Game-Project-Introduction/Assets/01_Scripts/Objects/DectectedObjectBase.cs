@@ -1,9 +1,9 @@
+using System.IO;
 using UnityEngine;
 
 public enum ObjectType
 {
-  Entry,
-  Escape,
+  Path,
   Clue,
   Target
 }
@@ -11,6 +11,6 @@ public enum ObjectType
 public class DectectedObjectBase : MonoBehaviour
 {
   [Header("오브젝트 정보")]
-  public ObjectType objectType;
+  public ObjectType objectType = ObjectType.Path;
   public int objectID = 0;
 }

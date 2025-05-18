@@ -13,13 +13,13 @@ public class TableManager : MonoBehaviour
 
   void Start()
   {
-    if(detectedObjects.IsDetected(ObjectType.Entry, 1)) entry.color = Color.green;
+    if(detectedObjects.IsDetected(ObjectType.Path, 0)) entry.color = Color.green;
     else entry.color = Color.red;
   
-    if(detectedObjects.IsDetected(ObjectType.Escape, 1)) escape.color = Color.green;
+    if(detectedObjects.IsDetected(ObjectType.Path, 1)) escape.color = Color.green;
     else escape.color = Color.red;
 
-    if(detectedObjects.IsDetected(ObjectType.Target, 1)) target.color = Color.green;
+    if(detectedObjects.IsDetected(ObjectType.Target, 0)) target.color = Color.green;
     else target.color = Color.red;
   }
 }

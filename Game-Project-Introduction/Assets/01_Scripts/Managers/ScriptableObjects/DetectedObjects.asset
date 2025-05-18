@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae0d4500a5f7d640880614da276738b, type: 3}
   m_Name: DetectedObjects
   m_EditorClassIdentifier: 
-  isEntry1Detected: 0
-  isEntry2Detected: 0
-  isEscapeDetected: 0
-  isClueDetected: 0
+  isPath1Detected: 1
+  isPath2Detected: 1
+  isTargetDetected: 0
