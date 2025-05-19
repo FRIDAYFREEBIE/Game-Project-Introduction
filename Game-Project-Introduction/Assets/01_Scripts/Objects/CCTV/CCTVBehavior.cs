@@ -12,93 +12,112 @@ public class CCTVBehavior : ObjectDetectorBase
   public Vector2 viewOffset = new Vector2(2.24f, 0f);
 
   private bool rotatingToPositive = true;
-  private Collider2D detectedPlayer;
-  public float playerDetectionTimer = 0f;
+  private bool isWaiting = false;
+
+  public Collider2D detectedPlayer;
+  private float detectionTimer = 0f;
 
   protected override void Update()
   {
     base.Update();
+    HandleRotation();
+    HandleDetectionTimer();
+  }
 
-    if(!isWaiting) Rotate();
-    else
+  private void HandleRotation()
+  {
+    if(isWaiting)
     {
       waitTimer += Time.deltaTime;
       if(waitTimer >= waitTimeAtAngle) isWaiting = false;
+      return;
     }
 
-    // 플레이어 감지 상태 체크
-    if(detectedPlayer != null) 
+    currentAngle += (rotatingToPositive ? 1f : -1f) * rotationSpeed * Time.deltaTime;
+
+    if(currentAngle >= maxAngle)
     {
-      playerDetectionTimer += Time.deltaTime;
-      if(playerDetectionTimer >= 2f) OnPlayerDetected();
+      currentAngle = maxAngle;
+      StartWaiting();
     }
-    else playerDetectionTimer = 0f;
+    else if(currentAngle <= -maxAngle)
+    {
+      currentAngle = -maxAngle;
+      StartWaiting();
+    }
+
+    transform.rotation = Quaternion.Euler(0f, 0f, currentAngle);
   }
 
-  private void Rotate()
+  private void StartWaiting()
   {
-    if (rotatingToPositive) currentAngle += rotationSpeed * Time.deltaTime;
-    else currentAngle -= rotationSpeed * Time.deltaTime;
-
-    if(currentAngle >= 45f && rotatingToPositive)
-    {
-      currentAngle = 45f;
-      isWaiting = true;
-      waitTimer = 0f;
-      rotatingToPositive = false;
-    }
-    else if(currentAngle <= -45f && !rotatingToPositive)
-    {
-      currentAngle = -45f;
-      isWaiting = true;
-      waitTimer = 0f;
-      rotatingToPositive = true;
-    }
-
-    transform.rotation = Quaternion.Euler(0, 0, currentAngle);
+    isWaiting = true;
+    waitTimer = 0f;
+    rotatingToPositive = !rotatingToPositive;
   }
 
-  private bool IsPlayerInSight()
+  private void HandleDetectionTimer()
   {
-    if(PlayerMovement.IsClingingToWall) return false;
+    if(player != null && IsInDetectionArea(player.transform.position))
+    {
+      if(detectedPlayer == null)
+      {
+        detectedPlayer = player;
+        detectionTimer = 0f;
+      }
 
-    Vector2 boxCenter = (Vector2)transform.position + viewOffset;
-    Collider2D playerCollider = Physics2D.OverlapBox(boxCenter, viewSize, currentAngle, playerLayer);
-    return playerCollider != null;
+      detectionTimer += Time.deltaTime;
+
+      if(detectionTimer >= 2f)
+      {
+        if(!isResearchStep)
+        {
+          Debug.Log("감지");
+          GameManager.GameOver();
+        }
+        else Debug.Log("감지, 조사 단계");
+      }
+    }
+    else
+    {
+      detectedPlayer = null;
+      detectionTimer = 0f;
+    }
   }
 
-
-  void OnDrawGizmos()
+  private bool IsInDetectionArea(Vector2 position)
   {
+    Quaternion rotation = Quaternion.Euler(0f, 0f, currentAngle - 90f);
+    Vector2 rotatedOffset = rotation * detection.offset;
+    Vector2 center = (Vector2)transform.position + rotatedOffset;
+
+    Collider2D hit = Physics2D.OverlapBox(center, detection.size, currentAngle - 90f, detection.playerLayer);
+
+    if(hit != null && hit.transform == player.transform)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  private void OnDrawGizmos()
+  {
+    Quaternion rotation = Quaternion.Euler(0f, 0f, currentAngle - 90f);
+    Vector2 rotatedOffset = rotation * detection.offset;
+    Vector2 center = (Vector2)transform.position + rotatedOffset;
+
     Gizmos.color = Color.cyan;
-    Gizmos.matrix = Matrix4x4.TRS(transform.position, Quaternion.Euler(0, 0, currentAngle), Vector3.one);
-    Gizmos.DrawWireCube(Vector2.zero + viewOffset, viewSize);
+    Gizmos.matrix = Matrix4x4.TRS(center, rotation, Vector3.one);
+    Gizmos.DrawWireCube(Vector2.zero, detection.size);
     Gizmos.matrix = Matrix4x4.identity;
   }
+
+  protected override void OnPlayerDetected() { }
 
   protected override void OnPlayerExit()
   {
     detectedPlayer = null;
-    playerDetectionTimer = 0f;
-  }
-
-  protected override void OnPlayerDetected()
-  {
-    if(IsPlayerInSight())
-    {
-      if(detectedPlayer == null)
-      {
-        detectedPlayer = Physics2D.OverlapBox((Vector2)transform.position + viewOffset, viewSize, currentAngle, playerLayer);
-        playerDetectionTimer = 0f;
-      }
-
-      playerDetectionTimer += Time.deltaTime;
-      if(playerDetectionTimer >= 2f && !isResearchStep)
-      {
-        Debug.Log("2초 이상 감지됨");
-        GameManager.GameOver();
-      }
-    }
-    else detectedPlayer = null;
+    detectionTimer = 0f;
   }
 }

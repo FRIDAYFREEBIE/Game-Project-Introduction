@@ -22,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
     moveDirection.x = Input.GetAxisRaw("Horizontal");
     moveDirection.y = 0f;
 
-    if(Input.GetKeyDown(KeyCode.X)){
+    if (Input.GetKeyDown(KeyCode.X))
+    {
       isClingingToWall = !isClingingToWall;
       IsClingingToWall = isClingingToWall;
     }

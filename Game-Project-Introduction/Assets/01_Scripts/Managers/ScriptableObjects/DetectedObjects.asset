@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPath1Detected: 1
   isPath2Detected: 1
-  isTargetDetected: 0
+  isTargetDetected: 1

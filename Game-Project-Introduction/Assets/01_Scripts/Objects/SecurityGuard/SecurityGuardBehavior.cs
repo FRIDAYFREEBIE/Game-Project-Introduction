@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class SecurityGuardBehavior : ObjectDetectorBase
 {
-  [Header("적 이동")]
+  [Header("순찰 설정")]
   public float moveSpeed = 2f;
   public Vector2 patrolPoint1;
   public Vector2 patrolPoint2;
+
+  [Header("감지 설정")]
+  public DetectionSettings detection = new DetectionSettings();
+
   private Vector2 patrolTarget;
-
-  [Header("시야 설정")]
-  public Vector2 viewSize = new Vector2(3f, 1f);  // 박스 크기
-  public Vector2 viewOffset = new Vector2(2.24f, 0f);  // 박스 오프셋
-
   private Collider2D detectedPlayer;
 
   private void Start()
@@ -23,8 +22,14 @@ public class SecurityGuardBehavior : ObjectDetectorBase
   {
     base.Update();
 
-    if (IsPlayerInSight()) MoveTowardsPlayer(detectedPlayer.transform);
-    else Patrol();
+    if (IsPlayerInSight())
+    {
+      MoveTowardsPlayer(detectedPlayer.transform);
+    }
+    else
+    {
+      Patrol();
+    }
   }
 
   protected override void OnPlayerDetected()
@@ -39,9 +44,10 @@ public class SecurityGuardBehavior : ObjectDetectorBase
 
   private void Patrol()
   {
-    transform.position = Vector2.MoveTowards(transform.position, patrolTarget, moveSpeed * Time.deltaTime);
+    float newX = Mathf.MoveTowards(transform.position.x, patrolTarget.x, moveSpeed * Time.deltaTime);
+    transform.position = new Vector2(newX, transform.position.y);
 
-    if ((Vector2)transform.position == patrolTarget)
+    if (Mathf.Abs(transform.position.x - patrolTarget.x) <= 0.05f)
     {
       patrolTarget = patrolTarget == patrolPoint1 ? patrolPoint2 : patrolPoint1;
     }
@@ -49,24 +55,25 @@ public class SecurityGuardBehavior : ObjectDetectorBase
 
   private void MoveTowardsPlayer(Transform playerTransform)
   {
-    if (playerTransform != null) transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, moveSpeed * 2 * Time.deltaTime);
+    if (playerTransform != null)
+    {
+      float targetX = playerTransform.position.x;
+      float newX = Mathf.MoveTowards(transform.position.x, targetX, moveSpeed * 2f * Time.deltaTime);
+      transform.position = new Vector2(newX, transform.position.y);
+    }
   }
 
   private bool IsPlayerInSight()
   {
     if (detectedPlayer == null) return false;
 
-    Vector2 boxCenter = (Vector2)transform.position + viewOffset;
+    float guardX = transform.position.x;
+    float viewRange = detection.size.x * 0.5f;
+    float offsetX = IsMovingLeft() ? -detection.offset.x : detection.offset.x;
+    float centerX = guardX + offsetX;
+    float playerX = detectedPlayer.transform.position.x;
 
-    if(IsMovingLeft())
-    {
-      boxCenter = (Vector2)transform.position - viewOffset;
-      viewSize.x = -viewSize.x;
-    }
-
-    Collider2D playerCollider = Physics2D.OverlapBox(boxCenter, viewSize, 0f);
-
-    return playerCollider != null;
+    return Mathf.Abs(playerX - centerX) <= viewRange;
   }
 
   private bool IsMovingLeft()
@@ -74,28 +81,25 @@ public class SecurityGuardBehavior : ObjectDetectorBase
     return patrolTarget == patrolPoint1;
   }
 
-  void OnDrawGizmos()
+  private void OnDrawGizmos()
   {
     Gizmos.color = Color.green;
     Gizmos.DrawSphere(patrolPoint1, 0.2f);
     Gizmos.DrawSphere(patrolPoint2, 0.2f);
 
     Gizmos.color = Color.cyan;
-    Vector2 boxCenter = (Vector2)transform.position + viewOffset;
-
-    if(IsMovingLeft())
-    {
-      boxCenter = (Vector2)transform.position - viewOffset;
-      Gizmos.DrawWireCube(boxCenter, new Vector2(-viewSize.x, viewSize.y));
-    }
-    else
-    {
-      Gizmos.DrawWireCube(boxCenter, viewSize);
-    }
+    float offsetX = IsMovingLeft() ? -detection.offset.x : detection.offset.x;
+    Vector2 center = new Vector2(transform.position.x + offsetX, transform.position.y);
+    Vector2 viewSize = new Vector2(Mathf.Abs(detection.size.x), detection.size.y);
+    Gizmos.DrawWireCube(center, viewSize);
   }
 
-  void OnCollisionEnter2D(Collision2D other)
+  private void OnTriggerEnter2D(Collider2D other)
   {
-    if(other.collider.CompareTag("Player")) GameManager.GameOver();
+    if(other.CompareTag("Player") && !PlayerMovement.IsClingingToWall)
+    {
+      Debug.Log("경비병이 플레이어와 트리거 충돌");
+      GameManager.GameOver();
+    }
   }
 }
