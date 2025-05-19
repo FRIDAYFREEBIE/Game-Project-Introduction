@@ -1,38 +1,29 @@
 using UnityEngine;
 
-public class PlayerEscape : MonoBehaviour
+public class PlayerEscape : PlayerDetectorBase
 {
-  [Header("목표 탐지")]
-  public LayerMask escapeLayer;
-  public Vector2 boxSize = new Vector2(1f, 1f);
   public TimerManager timerManager;
   public SO_SelectedPath selectedPath;
 
-  private void Update()
+  protected override void OnDetected(Collider2D[] targets)
   {
-    if (Input.GetKeyDown(KeyCode.F))
+    foreach(var target in targets)
     {
-      Vector2 boxCenter = (Vector2)transform.position;
-      Collider2D target = Detector.Detect(boxCenter, boxSize, escapeLayer);
-
-      if(target != null){
-        DectectedObjectBase dectectedObjectBase = target.GetComponent<DectectedObjectBase>();
-        if(GameManager.ReturnGetTarget() && timerManager.isClear() && dectectedObjectBase.objectID == selectedPath.escapeId) GameManager.GameClear();
-        Debug.Log(dectectedObjectBase.objectID);
-        Debug.Log(selectedPath.escapeId);
+      var detected = target.GetComponent<DectectedObjectBase>();
+      if(detected != null)
+      {
+        if(GameManager.ReturnGetTarget() &&
+           timerManager.isClear() &&
+           detected.objectID == selectedPath.escapeId)
+        {
+          GameManager.GameClear();
+          Debug.Log($"탈출 성공: {detected.objectID}");
+        }
+        else
+        {
+          Debug.Log($"탈출 조건 불일치: {detected.objectID} ≠ {selectedPath.escapeId}");
+        }
       }
-
     }
-  }
-
-  void OnDrawGizmos()
-  {
-    Gizmos.color = Color.yellow;
-
-    // 박스 중앙은 플레이어의 현재 위치
-    Vector2 boxCenter = (Vector2)transform.position;
-
-    // 박스 사이즈 및 위치로 WireCube 그리기
-    Gizmos.DrawWireCube(boxCenter, boxSize);
   }
 }

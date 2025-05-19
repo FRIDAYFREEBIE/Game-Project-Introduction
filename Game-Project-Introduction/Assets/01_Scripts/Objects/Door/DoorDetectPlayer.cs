@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DoorDetectPlayer : PlayerDetectorBase
+public class DoorDetectPlayer : ObjectDetectorBase
 {
   [Header("표시 이미지")]
   public GameObject button;

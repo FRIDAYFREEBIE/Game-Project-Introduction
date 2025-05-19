@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPCDetectPlayer : PlayerDetectorBase
+public class NPCDetectPlayer : ObjectDetectorBase
 {
   [Header("표시 이미지")]
   public GameObject button;

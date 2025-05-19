@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ClueDetectPlayer : PlayerDetectorBase
+public class ClueDetectPlayer : ObjectDetectorBase
 {
   [Header("표시 이미지")]
   public GameObject button;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SecurityGuardBehavior : PlayerDetectorBase
+public class SecurityGuardBehavior : ObjectDetectorBase
 {
   [Header("적 이동")]
   public float moveSpeed = 2f;

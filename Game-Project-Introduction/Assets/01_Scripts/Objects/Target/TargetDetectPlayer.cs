@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TargetDetectPlayer : PlayerDetectorBase
+public class TargetDetectPlayer : ObjectDetectorBase
 {
   [Header("표시 이미지")]
   public GameObject button;

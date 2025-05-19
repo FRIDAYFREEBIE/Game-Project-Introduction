@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CCTVBehavior : PlayerDetectorBase
+public class CCTVBehavior : ObjectDetectorBase
 {
   public float rotationSpeed = 30f;
   public float waitTimeAtAngle = 1f;

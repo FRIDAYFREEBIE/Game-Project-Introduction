@@ -1,22 +1,15 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerOpenDoor : MonoBehaviour
+public class PlayerOpenDoor : PlayerDetectorBase
 {
-  [Header("목표 탐지")]
-  public LayerMask doorLayer;
-  public Vector2 boxSize = new Vector2(1f, 1f);
-
-  private void Update()
+  protected override void OnDetected(Collider2D[] targets)
   {
-    if(Input.GetKeyDown(KeyCode.F)){
-      Vector2 boxCenter = (Vector2)transform.position;
-      Collider2D target = Detector.Detect(boxCenter, boxSize, doorLayer);
-
-      if (target != null)
+    foreach(var target in targets)
+    {
+      var door = target.GetComponent<DoorDetectPlayer>();
+      if(door != null)
       {
-        DoorDetectPlayer doorDetectPlayer = target.gameObject.GetComponent<DoorDetectPlayer>();
-        doorDetectPlayer.PlayerOpenDoor(transform);
+        door.PlayerOpenDoor(transform);
         Debug.Log("문 탐지");
       }
     }
