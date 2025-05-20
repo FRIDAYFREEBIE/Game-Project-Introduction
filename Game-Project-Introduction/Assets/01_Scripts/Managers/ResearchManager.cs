@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ResearchManager : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class ResearchManager : MonoBehaviour
 
   void Start()
   {
-    if(playerTransform == null){
+    if(playerTransform == null)
+    {
       GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
       if(playerObj != null) playerTransform = playerObj.transform;
     }
@@ -30,16 +32,19 @@ public class ResearchManager : MonoBehaviour
 
     float distance = Vector2.Distance(lastPosition, playerTransform.position);
 
-    if(distance <= positionThreshold){
+    if(distance <= positionThreshold)
+    {
       stillTimer += Time.deltaTime;
 
-      if(stillTimer >= requiredTime){
+      if(stillTimer >= requiredTime)
+      {
         Debug.Log("조사 종료");
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(LoadSceneWithFade(sceneName));
         stillTimer = 0f;
       }
     }
-    else{
+    else
+    {
       stillTimer = 0f;
       lastPosition = playerTransform.position;
     }
@@ -47,6 +52,13 @@ public class ResearchManager : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D other)
   {
-    if(other.CompareTag("Player")) SceneManager.LoadScene(sceneName);
+    if(other.CompareTag("Player")) StartCoroutine(LoadSceneWithFade(sceneName));
+  }
+  
+  private IEnumerator LoadSceneWithFade(string sceneName)
+  {
+    FadeControllerUI.Instance.FadeOut();
+    yield return new WaitForSeconds(FadeControllerUI.Instance.fadeDuration);
+    SceneManager.LoadScene(sceneName);
   }
 }

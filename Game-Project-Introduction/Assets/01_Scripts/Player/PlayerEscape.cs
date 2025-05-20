@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerEscape : PlayerDetectorBase
 {
-  public TimerManager timerManager;
   public SO_SelectedPath selectedPath;
 
   protected override void OnDetected(Collider2D[] targets)
@@ -13,10 +12,10 @@ public class PlayerEscape : PlayerDetectorBase
       if(detected != null)
       {
         if(GameManager.ReturnGetTarget() &&
-           timerManager.isClear() &&
+           TimerManager.Instance.IsClear() &&
            detected.objectID == selectedPath.escapeId)
         {
-          GameManager.GameClear();
+          GameManager.Instance.GameClear();
           Debug.Log($"탈출 성공: {detected.objectID}");
         }
         else

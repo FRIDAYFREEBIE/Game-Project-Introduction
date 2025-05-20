@@ -96,10 +96,10 @@ public class SecurityGuardBehavior : ObjectDetectorBase
 
   private void OnTriggerEnter2D(Collider2D other)
   {
-    if(other.CompareTag("Player") && !PlayerMovement.IsClingingToWall)
+    if (other.CompareTag("Player") && !PlayerMovement.IsClingingToWall)
     {
-      Debug.Log("경비병이 플레이어와 트리거 충돌");
-      GameManager.GameOver();
+      GameManager.Instance.GameOver();
+      Debug.Log($"충돌 {PlayerMovement.IsClingingToWall}");
     }
   }
 }

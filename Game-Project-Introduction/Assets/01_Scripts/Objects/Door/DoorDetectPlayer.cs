@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class DoorDetectPlayer : ObjectDetectorBase
 {
@@ -21,6 +21,14 @@ public class DoorDetectPlayer : ObjectDetectorBase
 
   public void PlayerOpenDoor(Transform player)
   {
+    StartCoroutine(UseDoor());
+  }
+
+  private IEnumerator UseDoor()
+  {
+    FadeControllerUI.Instance.FadeOut();
+    yield return new WaitForSeconds(FadeControllerUI.Instance.fadeDuration);
+    FadeControllerUI.Instance.FadeIn();
     player.transform.position = nextPos.position;
   }
 }

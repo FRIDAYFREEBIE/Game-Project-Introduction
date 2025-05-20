@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+  public static GameManager Instance{get; private set;}
+
   public static bool isGetTarget = false;
 
   [Header("경로")]
@@ -11,22 +14,33 @@ public class GameManager : MonoBehaviour
   public Transform path1;
   public Transform path2;
 
-  void Awake()
+  private void Awake()
   {
+    if(Instance == null)
+    {
+      Instance = this;
+      DontDestroyOnLoad(gameObject);
+    }
+    else
+    {
+      Destroy(gameObject);
+      return;
+    }
+
     if(selectedPath.entryId == 0) player.transform.position = path1.transform.position;
     else player.transform.position = path2.transform.position;
   }
 
-  public static void GameClear()
+  public void GameClear()
   {
     Debug.Log("게임클리어");
-    SceneManager.LoadScene("ClearScene");
+    StartCoroutine(LoadSceneWithFade("ClearScene"));
   }
 
-  public static void GameOver()
+  public void GameOver()
   {
     Debug.Log("게임오버");
-    SceneManager.LoadScene("PlanTableScene");
+    StartCoroutine(LoadSceneWithFade("PlanTableScene"));
   }
 
   public static void GetTarget()
@@ -37,5 +51,13 @@ public class GameManager : MonoBehaviour
   public static bool ReturnGetTarget()
   {
     return isGetTarget;
+  }
+
+  private IEnumerator LoadSceneWithFade(string loadSceneName)
+  {
+    FadeControllerUI.Instance.FadeOut();
+    yield return new WaitForSeconds(FadeControllerUI.Instance.fadeDuration + 0.5f);
+    SceneManager.LoadScene(loadSceneName);
+    TimerManager.Instance.canWork = false;
   }
 }

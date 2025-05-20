@@ -10,33 +10,37 @@ public class PlayerMovement : MonoBehaviour
 
   private Rigidbody2D rb;
   private Vector2 moveDirection;
-  private bool isClingingToWall = false;
+  public bool isClingingToWall = false;
+  private SpriteRenderer spriteRenderer;
 
   private void Start()
   {
     rb = GetComponent<Rigidbody2D>();
+    spriteRenderer = GetComponent<SpriteRenderer>();
   }
 
   private void Update()
   {
     moveDirection.x = Input.GetAxisRaw("Horizontal");
+  }
+
+  private void FixedUpdate()
+  {
     moveDirection.y = 0f;
 
     if (Input.GetKeyDown(KeyCode.X))
     {
       isClingingToWall = !isClingingToWall;
       IsClingingToWall = isClingingToWall;
+      Debug.Log(IsClingingToWall);
     }
-  }
 
-  private void FixedUpdate()
-  {
     float speed = playerStats.moveSpeed;
-    if(isClingingToWall){
-      speed *= 0.5f;
-    }
+    if(isClingingToWall) speed *= 0.5f;
 
     Vector2 nextPosition = rb.position + new Vector2(moveDirection.x * speed * Time.fixedDeltaTime, 0f);
     rb.MovePosition(nextPosition);
+
+    if(moveDirection.x != 0) spriteRenderer.flipX = moveDirection.x > 0;
   }
 }

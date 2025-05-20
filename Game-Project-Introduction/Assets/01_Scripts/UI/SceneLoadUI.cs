@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneLoadUI : MonoBehaviour
 {
@@ -8,6 +9,13 @@ public class SceneLoadUI : MonoBehaviour
 
   public void OnClick()
   {
+    StartCoroutine(LoadSceneWithFade());
+  }
+
+  private IEnumerator LoadSceneWithFade()
+  {
+    FadeControllerUI.Instance.FadeOut();
+    yield return new WaitForSeconds(FadeControllerUI.Instance.fadeDuration);
     SceneManager.LoadScene(loadSceneName);
   }
 }

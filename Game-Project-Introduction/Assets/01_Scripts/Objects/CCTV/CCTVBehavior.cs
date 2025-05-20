@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class CCTVBehavior : ObjectDetectorBase
 {
+  [Header("회전 설정")]
+  [Tooltip("초당 회전 속도 (도 단위)")]
   public float rotationSpeed = 30f;
+
+  [Tooltip("최대 회전 각도")]
+  public float maxAngle = 45f;
+
+  [Tooltip("각도에 도달했을 때 멈추는 시간")]
   public float waitTimeAtAngle = 1f;
+
+  [Header("감지 설정")]
+  public DetectionSettings detection = new DetectionSettings();
+
   private float currentAngle = 0f;
-  public bool isWaiting = false;
   private float waitTimer = 0f;
-
-  public Vector2 viewSize = new Vector2(3f, 1f);
-  public Vector2 viewOffset = new Vector2(2.24f, 0f);
-
   private bool rotatingToPositive = true;
   private bool isWaiting = false;
 
@@ -73,7 +79,7 @@ public class CCTVBehavior : ObjectDetectorBase
         if(!isResearchStep)
         {
           Debug.Log("감지");
-          GameManager.GameOver();
+          GameManager.Instance.GameOver();
         }
         else Debug.Log("감지, 조사 단계");
       }

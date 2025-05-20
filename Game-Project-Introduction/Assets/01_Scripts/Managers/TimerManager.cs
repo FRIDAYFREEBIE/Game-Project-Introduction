@@ -2,11 +2,28 @@ using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
+  public static TimerManager Instance { get; private set; }
+
   [Header("타이머")]
   public SO_TimerInfo timerInfo;
   public float timeOffset = 0f;
 
   public float currentTime = 0f;
+  public bool canWork = true;
+
+  private void Awake()
+  {
+    if (Instance == null)
+    {
+      Instance = this;
+      DontDestroyOnLoad(gameObject);
+    }
+    else
+    {
+      Destroy(gameObject);
+      return;
+    }
+  }
 
   private void Start()
   {
@@ -16,13 +33,15 @@ public class TimerManager : MonoBehaviour
 
   private void Update()
   {
-    if(currentTime <= timerInfo.time) currentTime += Time.deltaTime;
-    else Debug.Log("클리어 실패");
+    if(canWork)
+    {
+      if(currentTime <= timerInfo.time) currentTime += Time.deltaTime;
+      else GameManager.Instance.GameOver();
+    }
   }
 
-  public bool isClear()
+  public bool IsClear()
   {
-    if(currentTime <= timerInfo.time + timeOffset && currentTime >= timerInfo.time - timeOffset) return true;
-    else return false;
+    return currentTime >= timerInfo.time - timeOffset && currentTime <= timerInfo.time + timeOffset;
   }
 }
