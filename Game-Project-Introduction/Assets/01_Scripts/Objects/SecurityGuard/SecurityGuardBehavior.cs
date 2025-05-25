@@ -6,12 +6,22 @@ public class SecurityGuardBehavior : ObjectDetectorBase
   public float moveSpeed = 2f;
   public Vector2 patrolPoint1;
   public Vector2 patrolPoint2;
+  public bool isRuning = false;
+  public bool isOver = false;
 
   [Header("감지 설정")]
   public DetectionSettings detection = new DetectionSettings();
 
   private Vector2 patrolTarget;
   private Collider2D detectedPlayer;
+  private SpriteRenderer spriteRenderer;
+
+  private bool canMove = true;
+
+  private void Awake()
+  {
+    spriteRenderer = GetComponent<SpriteRenderer>();
+  }
 
   private void Start()
   {
@@ -22,13 +32,19 @@ public class SecurityGuardBehavior : ObjectDetectorBase
   {
     base.Update();
 
-    if (IsPlayerInSight())
+    if (canMove)
     {
-      MoveTowardsPlayer(detectedPlayer.transform);
-    }
-    else
-    {
-      Patrol();
+      if (IsPlayerInSight())
+        {
+          MoveTowardsPlayer(detectedPlayer.transform);
+        }
+        else
+        {
+          Patrol();
+          isRuning = false;
+        }
+
+      UpdateSpriteDirection();
     }
   }
 
@@ -57,6 +73,7 @@ public class SecurityGuardBehavior : ObjectDetectorBase
   {
     if (playerTransform != null)
     {
+      isRuning = true;
       float targetX = playerTransform.position.x;
       float newX = Mathf.MoveTowards(transform.position.x, targetX, moveSpeed * 2f * Time.deltaTime);
       transform.position = new Vector2(newX, transform.position.y);
@@ -81,6 +98,19 @@ public class SecurityGuardBehavior : ObjectDetectorBase
     return patrolTarget == patrolPoint1;
   }
 
+  private void UpdateSpriteDirection()
+  {
+    if (IsPlayerInSight() && detectedPlayer != null)
+    {
+      float direction = detectedPlayer.transform.position.x - transform.position.x;
+      spriteRenderer.flipX = direction > 0f;
+    }
+    else
+    {
+      spriteRenderer.flipX = !IsMovingLeft();
+    }
+  }
+
   private void OnDrawGizmos()
   {
     Gizmos.color = Color.green;
@@ -98,8 +128,13 @@ public class SecurityGuardBehavior : ObjectDetectorBase
   {
     if (other.CompareTag("Player") && !PlayerMovement.IsClingingToWall)
     {
-      GameManager.Instance.GameOver();
-      Debug.Log($"충돌 {PlayerMovement.IsClingingToWall}");
+      if (!isOver)
+      {
+        GameManager.Instance.GameOver();
+        Debug.Log($"충돌 {PlayerMovement.IsClingingToWall}");
+        isOver = true;
+        canMove = false;
+      }
     }
   }
 }
