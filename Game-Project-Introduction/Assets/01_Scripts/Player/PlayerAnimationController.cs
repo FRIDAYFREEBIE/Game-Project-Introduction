@@ -1,14 +1,15 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerAnimationController : MonoBehaviour
 {
+  public bool isNomal = false;
+
   private Animator animator;
-  private Rigidbody2D rb;
 
   private void Awake()
   {
     animator = GetComponent<Animator>();
-    rb = GetComponent<Rigidbody2D>();
   }
 
   private void Update()
@@ -16,19 +17,42 @@ public class PlayerAnimationController : MonoBehaviour
     // 이동 중
     bool isMoving = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0f;
 
-    if (isMoving)
+    if (!isNomal)
     {
-      if(PlayerMovement.IsClingingToWall)
+      if (isMoving)
       {
-        animator.SetBool("isClinging", true);
-        animator.SetBool("isRuning", false);
+        if (PlayerMovement.IsClingingToWall)
+        {
+          animator.SetBool("isClinging", true);
+          animator.SetBool("isRuning", false);
+        }
+        else
+        {
+          animator.SetBool("isRuning", true);
+          animator.SetBool("isClinging", false);
+        }
       }
-      else
+      else animator.SetBool("isRuning", false);
+    }
+    else
+    {
+      if (Input.GetKeyDown(KeyCode.C))
+      {
+        animator.SetBool("isCamera", true);
+        StartCoroutine(ResetCameraBool());
+      }
+
+      if (isMoving)
       {
         animator.SetBool("isRuning", true);
-        animator.SetBool("isClinging", false);
       }
+      else animator.SetBool("isRuning", false);
     }
-    else animator.SetBool("isRuning", false);
+  }
+  
+  private IEnumerator ResetCameraBool()
+  {
+    yield return null;
+    animator.SetBool("isCamera", false);
   }
 }

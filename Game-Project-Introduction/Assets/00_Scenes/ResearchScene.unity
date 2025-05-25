@@ -1412,6 +1412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 11400000, guid: 0fd8105796575984b9135e2f062518a5, type: 2}
+  isClingingToWall: 0
 --- !u!50 &868036157
 Rigidbody2D:
   serializedVersion: 5
@@ -1520,7 +1521,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3929029040313477309, guid: 9449f6de76c71054d90ec91b71e0a608, type: 3}
+  m_Sprite: {fileID: 6072122065717316412, guid: 4590d109fb977f24daf76b04de5f7303, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1558,7 +1559,7 @@ Animator:
   m_GameObject: {fileID: 868036149}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 995c43098658e354496306a808b780b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 08d769f398329054bb49922351279ea6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1598,6 +1599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0625b49ec76694b4a86b28d942a8dd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNomal: 1
 --- !u!1 &891617503
 GameObject:
   m_ObjectHideFlags: 0

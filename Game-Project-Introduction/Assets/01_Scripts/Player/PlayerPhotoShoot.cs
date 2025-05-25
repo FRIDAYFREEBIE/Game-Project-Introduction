@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerPhotoShoot : MonoBehaviour
 {
@@ -26,10 +27,9 @@ public class PlayerPhotoShoot : MonoBehaviour
   private void Update()
   {
     // 사진 촬영
-    if(Input.GetKeyDown(KeyCode.C) && Time.time - lastShootTime >= shootCooldown){
-      photoShootEffect.PhotoShoot();
-      PhotoShoot();
-      lastShootTime = Time.time;
+    if (Input.GetKeyDown(KeyCode.C) && Time.time - lastShootTime >= shootCooldown)
+    {
+      StartCoroutine(Delay());
     }
   }
 
@@ -44,10 +44,13 @@ public class PlayerPhotoShoot : MonoBehaviour
     Collider2D[] pathFound = Detector.DetectAll(center, size, PathLayer);
     Collider2D[] targetFound = Detector.DetectAll(center, size, targetLayer);
 
-    if(pathFound.Length > 0){
-      foreach(var obj in pathFound){
+    if (pathFound.Length > 0)
+    {
+      foreach (var obj in pathFound)
+      {
         var detected = obj.GetComponent<DectectedObjectBase>();
-        if(detected != null){
+        if (detected != null)
+        {
           detectedObjects.RegisterDetection(detected.objectType, detected.objectID);
           var displayImage = displayPath.GetComponent<DisplayImageUI>();
           displayImage.Display();
@@ -55,8 +58,10 @@ public class PlayerPhotoShoot : MonoBehaviour
       }
     }
 
-    if(targetFound.Length > 0){
-      foreach(var obj in targetFound){
+    if (targetFound.Length > 0)
+    {
+      foreach (var obj in targetFound)
+      {
         var detected = obj.GetComponent<DectectedObjectBase>();
         if (detected != null)
         {
@@ -68,5 +73,13 @@ public class PlayerPhotoShoot : MonoBehaviour
         }
       }
     }
+  }
+
+  private IEnumerator Delay()
+  {
+    yield return new WaitForSeconds(0.5f);
+    photoShootEffect.PhotoShoot();
+    PhotoShoot();
+    lastShootTime = Time.time;
   }
 }
