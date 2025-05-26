@@ -1,39 +1,74 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
+using System.Collections.Generic;
 
 public class DialogUI : MonoBehaviour
 {
-  [Header("텍스트")]
-  public TextMeshProUGUI textMeshPro;
-  public GameObject dialog;
+  [Header("UI 오브젝트")]
+  public GameObject dialogPanel;
 
-  public List<string> text;
-  int currentLine = 0;
+  [Header("플레이어 말풍선")]
+  public GameObject playerBubble;
+  public TextMeshProUGUI playerText;
 
-  void Update()
+  [Header("NPC 말풍선")]
+  public GameObject npcBubble;
+  public TextMeshProUGUI npcText;
+
+  private int currentIndex = 0;
+  private bool isPlaying = false;
+  private List<DialogueLine> currentScript;
+
+  public void SetText(List<DialogueLine> script)
   {
-    if(dialog.activeSelf && Input.GetKeyDown(KeyCode.Return)) NextLine();
+    currentScript = script;
+    currentIndex = 0;
+    isPlaying = true;
+
+    dialogPanel.SetActive(true);
+    ShowCurrentLine();
   }
 
-  // 대화 설정
-  public void SetText(List<string> list)
+  private void Update()
   {
-    text = list;
-    currentLine = 0;
+    if (isPlaying && Input.GetKeyDown(KeyCode.Space))
+    {
+      currentIndex++;
 
-    dialog.SetActive(true);
-
-    textMeshPro.text = text[currentLine];
-  }
-
-  public void NextLine()
-  {
-    if(currentLine < text.Count - 1){
-      currentLine++;
-      textMeshPro.text = text[currentLine];
-      Debug.Log(text[currentLine]);
+      if (currentIndex < currentScript.Count)
+      {
+        ShowCurrentLine();
+      }
+      else
+      {
+        EndDialog();
+      }
     }
-    else dialog.SetActive(false);
+  }
+
+  private void ShowCurrentLine()
+  {
+    DialogueLine line = currentScript[currentIndex];
+
+    if (line.speaker == Speaker.Player)
+    {
+      playerBubble.SetActive(true);
+      npcBubble.SetActive(false);
+      playerText.text = line.text;
+    }
+    else
+    {
+      npcBubble.SetActive(true);
+      playerBubble.SetActive(false);
+      npcText.text = line.text;
+    }
+  }
+
+  private void EndDialog()
+  {
+    isPlaying = false;
+    dialogPanel.SetActive(false);
+    playerBubble.SetActive(false);
+    npcBubble.SetActive(false);
   }
 }

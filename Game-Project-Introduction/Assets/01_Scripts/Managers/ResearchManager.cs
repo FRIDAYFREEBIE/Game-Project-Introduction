@@ -10,7 +10,7 @@ public class ResearchManager : MonoBehaviour
   [Header("플레이어 정지 판정")]
   public Transform playerTransform;
   public float positionThreshold = 0.1f;
-  public float requiredTime = 3f;
+  public float requiredTime = 10f;
 
   private float stillTimer = 0f;
   private Vector2 lastPosition;
