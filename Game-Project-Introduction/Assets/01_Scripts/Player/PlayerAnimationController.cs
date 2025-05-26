@@ -14,7 +14,6 @@ public class PlayerAnimationController : MonoBehaviour
 
   private void Update()
   {
-    // 이동 중
     bool isMoving = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0f;
 
     if (!isNomal)
@@ -32,27 +31,39 @@ public class PlayerAnimationController : MonoBehaviour
           animator.SetBool("isClinging", false);
         }
       }
-      else animator.SetBool("isRuning", false);
+      else
+      {
+        animator.SetBool("isRuning", false);
+        animator.SetBool("isClinging", false);
+      }
     }
     else
     {
       if (Input.GetKeyDown(KeyCode.C))
       {
         animator.SetBool("isCamera", true);
-        StartCoroutine(ResetCameraBool());
+        StartCoroutine(ResetBool("isCamera"));
       }
 
-      if (isMoving)
-      {
-        animator.SetBool("isRuning", true);
-      }
-      else animator.SetBool("isRuning", false);
+      animator.SetBool("isRuning", isMoving);
     }
   }
-  
-  private IEnumerator ResetCameraBool()
+
+  public void PlayTake()
+  {
+    animator.SetBool("isTake", true);
+    StartCoroutine(ResetBool("isTake"));
+  }
+
+  public void PlaySurprise()
+  {
+    animator.SetBool("isSurprise", true);
+    StartCoroutine(ResetBool("isSurprise"));
+  }
+
+  private IEnumerator ResetBool(string parameter)
   {
     yield return null;
-    animator.SetBool("isCamera", false);
+    animator.SetBool(parameter, false);
   }
 }

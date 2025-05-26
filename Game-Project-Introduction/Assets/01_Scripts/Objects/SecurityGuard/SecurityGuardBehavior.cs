@@ -130,11 +130,14 @@ public class SecurityGuardBehavior : ObjectDetectorBase
     {
       if (!isOver)
       {
+        var anim = other.GetComponent<PlayerAnimationController>();
+        if (anim != null) anim.PlaySurprise();
+
         GameManager.Instance.GameOver();
-        Debug.Log($"충돌 {PlayerMovement.IsClingingToWall}");
         isOver = true;
         canMove = false;
       }
     }
   }
+
 }

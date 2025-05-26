@@ -64,24 +64,25 @@ public class CCTVBehavior : ObjectDetectorBase
 
   private void HandleDetectionTimer()
   {
-    if(player != null && IsInDetectionArea(player.transform.position))
+    if (player != null && IsInDetectionArea(player.transform.position))
     {
-      if(detectedPlayer == null)
+      if (detectedPlayer == null)
       {
         detectedPlayer = player;
         detectionTimer = 0f;
+
       }
 
       detectionTimer += Time.deltaTime;
 
-      if(detectionTimer >= 2f)
+      if (detectionTimer >= 2f)
       {
-        if(!isResearchStep)
+        if (!isResearchStep)
         {
-          Debug.Log("감지");
           GameManager.Instance.GameOver();
+          var anim = player.GetComponent<PlayerAnimationController>();
+          if (anim != null) anim.PlaySurprise();
         }
-        else Debug.Log("감지, 조사 단계");
       }
     }
     else
@@ -90,6 +91,7 @@ public class CCTVBehavior : ObjectDetectorBase
       detectionTimer = 0f;
     }
   }
+
 
   private bool IsInDetectionArea(Vector2 position)
   {
