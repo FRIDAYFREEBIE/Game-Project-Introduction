@@ -11,7 +11,7 @@ public class PlayerEscape : PlayerDetectorBase
       var detected = target.GetComponent<DectectedObjectBase>();
       if(detected != null)
       {
-        if(GameManager.ReturnGetTarget() &&
+        if (GameManager.ReturnGetTarget() &&
            TimerManager.Instance.IsClear() &&
            detected.objectID == selectedPath.escapeId)
         {
@@ -21,6 +21,8 @@ public class PlayerEscape : PlayerDetectorBase
         else
         {
           Debug.Log($"탈출 조건 불일치: {detected.objectID} ≠ {selectedPath.escapeId}");
+          Debug.Log($"타임매니저: {TimerManager.Instance.IsClear()}");
+          Debug.Log($"게임매니저: {GameManager.ReturnGetTarget()}");
         }
       }
     }

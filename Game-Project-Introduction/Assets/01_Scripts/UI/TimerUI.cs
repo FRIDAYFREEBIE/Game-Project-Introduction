@@ -1,15 +1,12 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class TimerUI : MonoBehaviour
 {
-  [Header("타이머")]
-  public TimerManager timerManager;
   public TextMeshProUGUI textMeshPro;
 
   private void Update()
   {
-    int temp = (int)timerManager.currentTime;
-    textMeshPro.text = temp.ToString();
+    textMeshPro.text = $"{TimerManager.Instance.currentHour:D2}:{TimerManager.Instance.currentMinute:D2}";
   }
 }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PathObjects
   m_EditorClassIdentifier: 
   entryId: 0
-  escapeId: 0
+  escapeId: 1

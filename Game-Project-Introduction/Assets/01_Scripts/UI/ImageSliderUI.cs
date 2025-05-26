@@ -18,7 +18,6 @@ public class ImageSliderUI : MonoBehaviour
   void Start()
   {
     ShowImage(currentIndex);
-    selectedPath.SetPath(pathType, currentIndex);
   }
 
   public void ShowNext()

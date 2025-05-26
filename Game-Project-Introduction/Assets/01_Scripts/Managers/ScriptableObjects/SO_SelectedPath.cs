@@ -9,8 +9,8 @@ public enum PathType
 [CreateAssetMenu(fileName = "NewPathObjects", menuName = "Path/Selected")]
 public class SO_SelectedPath : ScriptableObject
 {
-  public int entryId = -1;
-  public int escapeId = -1;
+  public int entryId = 0;
+  public int escapeId = 1;
 
   public void SetPath(PathType pathType ,int id)
   {

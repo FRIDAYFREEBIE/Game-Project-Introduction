@@ -1,24 +1,26 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class TimeInputUI : MonoBehaviour
 {
-  [Header("타이머 정보")]
   public SO_TimerInfo timerInfo;
-
-  [Header("시간 입력 필드")]
   public TMP_InputField inputField;
-
-  [Header("씬 로드")]
   public SceneLoadUI sceneLoadUI;
 
   public void SubmitTime()
   {
-    if(float.TryParse(inputField.text, out float timeValue)){
-      timerInfo.time = timeValue;
-      Debug.Log("설정된 타이머 시간: " + timeValue + "초");
+    string[] parts = inputField.text.Split(':');
+
+    if (parts.Length == 2 &&
+      int.TryParse(parts[0], out int hour) &&
+      int.TryParse(parts[1], out int minute) &&
+      hour >= 21 && hour <= 24 && (minute == 0 || minute == 30))
+    {
+      timerInfo.targetHour = hour;
+      timerInfo.targetMinute = minute;
+
+      Debug.Log($"목표 시간: {hour:D2}:{minute:D2}");
       sceneLoadUI.OnClick();
     }
-    else Debug.LogWarning("유효하지 않은 숫자 입력");
   }
 }
