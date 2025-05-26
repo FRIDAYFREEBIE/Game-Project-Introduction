@@ -19,6 +19,7 @@ public class CCTVBehavior : ObjectDetectorBase
   private float waitTimer = 0f;
   private bool rotatingToPositive = true;
   private bool isWaiting = false;
+  private bool isOver = false;
 
   public Collider2D detectedPlayer;
   private float detectionTimer = 0f;
@@ -77,11 +78,12 @@ public class CCTVBehavior : ObjectDetectorBase
 
       if (detectionTimer >= 2f)
       {
-        if (!isResearchStep)
+        if (!isResearchStep && !isOver)
         {
           GameManager.Instance.GameOver();
           var anim = player.GetComponent<PlayerAnimationController>();
           if (anim != null) anim.PlaySurprise();
+          isOver = true;
         }
       }
     }
