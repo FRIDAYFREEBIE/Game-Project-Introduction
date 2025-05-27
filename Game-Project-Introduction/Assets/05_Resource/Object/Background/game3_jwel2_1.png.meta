@@ -82,7 +82,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -425,7 +425,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -434,7 +434,20 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      game3_jwel2_1_0: -4114703633873114702
+      game3_jwel2_1_1: 1491889615276113234
+      game3_jwel2_1_10: 121508320041214068
+      game3_jwel2_1_11: -3218212990834459693
+      game3_jwel2_1_12: -2050994736793675986
+      game3_jwel2_1_2: 4748042158720032354
+      game3_jwel2_1_3: 8907514310231529920
+      game3_jwel2_1_4: 7697445328514937348
+      game3_jwel2_1_5: -4996793511693361246
+      game3_jwel2_1_6: 6522888550706155696
+      game3_jwel2_1_7: 7174214726212339425
+      game3_jwel2_1_8: 5641343392161085265
+      game3_jwel2_1_9: 3094705808743351784
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
