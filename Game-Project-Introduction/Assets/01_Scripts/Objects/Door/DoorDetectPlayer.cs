@@ -21,14 +21,18 @@ public class DoorDetectPlayer : ObjectDetectorBase
 
   public void PlayerOpenDoor(Transform player)
   {
-    StartCoroutine(UseDoor());
+    StartCoroutine(UseDoor(player));
   }
 
-  private IEnumerator UseDoor()
+  private IEnumerator UseDoor(Transform player)
   {
     FadeControllerUI.Instance.FadeOut();
     yield return new WaitForSeconds(FadeControllerUI.Instance.fadeDuration);
+
+    Vector3 pos = nextPos.position;
+    pos.y -= 1f;
+    player.position = pos;
+
     FadeControllerUI.Instance.FadeIn();
-    player.transform.position = nextPos.position;
   }
 }
