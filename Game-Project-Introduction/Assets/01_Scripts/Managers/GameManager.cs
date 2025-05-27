@@ -27,8 +27,18 @@ public class GameManager : MonoBehaviour
       return;
     }
 
-    if(selectedPath.entryId == 0) player.transform.position = path1.transform.position;
-    else player.transform.position = path2.transform.position;
+    if (selectedPath.entryId == 0)
+    {
+      Vector3 pos = path1.transform.position;
+      pos.y -= 1f;
+      player.position = pos;
+    }
+    else
+    {
+      Vector3 pos = path2.transform.position;
+      pos.y -= 1f;
+      player.position = pos;
+    }
   }
 
   public void GameClear()
