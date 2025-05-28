@@ -413,7 +413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7317065018011586233, guid: 94aa079e104954c43aed367d6d6274ad, type: 3}
+  m_Sprite: {fileID: 902035027105728211, guid: 7edd519b5461ef14c960054d518a3298, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1242,7 +1242,7 @@ GameObject:
   - component: {fileID: 2118429221}
   - component: {fileID: 2118429222}
   m_Layer: 0
-  m_Name: "\uD0C0\uC774\uD2C0 \uC77C\uB7EC\uC2A4\uD2B8_0"
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1257,7 +1257,7 @@ Transform:
   m_GameObject: {fileID: 2118429220}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1307,7 +1307,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7579520218639037062, guid: 69fea970b79a9c54d86df0c96834bb2b, type: 3}
+  m_Sprite: {fileID: -4174208418035153889, guid: fa41f029f1fc58b49acd121ab2f3c746, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
