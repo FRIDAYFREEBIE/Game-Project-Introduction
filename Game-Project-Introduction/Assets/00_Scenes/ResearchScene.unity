@@ -1235,11 +1235,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1051331681970730693, guid: 1edcac4a9e3b3b84088e309750b74233, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1405796626555427226, guid: 1edcac4a9e3b3b84088e309750b74233, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.47
+      value: -1.11
       objectReference: {fileID: 0}
     - target: {fileID: 1405796626555427226, guid: 1edcac4a9e3b3b84088e309750b74233, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46445,7 +46445,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -4.2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
