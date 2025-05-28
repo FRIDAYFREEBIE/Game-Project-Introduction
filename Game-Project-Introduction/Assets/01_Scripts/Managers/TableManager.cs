@@ -16,14 +16,14 @@ public class TableManager : MonoBehaviour
 
   void Start()
   {
-    if (detectedObjects.IsDetected(ObjectType.Path, 0)) entry.color = Color.green;
-    else entry.color = Color.red;
+    if (detectedObjects.IsDetected(ObjectType.Path, 0)) entry.color = Color.white;
+    else entry.color = Color.black;
 
-    if (detectedObjects.IsDetected(ObjectType.Path, 1)) escape.color = Color.green;
-    else escape.color = Color.red;
+    if (detectedObjects.IsDetected(ObjectType.Path, 1)) escape.color = Color.white;
+    else escape.color = Color.black;
 
-    if (detectedObjects.IsDetected(ObjectType.Target, 0)) target.color = Color.green;
-    else target.color = Color.red;
+    if (detectedObjects.IsDetected(ObjectType.Target, 0)) target.color = Color.white;
+    else target.color = Color.black;
 
     selectedPath.entryId = 0;
     selectedPath.escapeId = 1;
