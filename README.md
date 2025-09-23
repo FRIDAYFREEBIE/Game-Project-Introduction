@@ -36,7 +36,6 @@
 ---
 
 ## 📄 프로젝트 자료
-[구글 드라이브로 이동](https://drive.google.com/drive/folders/1CeY2I_sZLpQ1sAwsbt7mu27cwntI-yxJ?usp=sharing) (실행 가능한 exe 파일이 있습니다.)
-
+[구글 드라이브로 이동](https://drive.google.com/drive/folders/1wfMrJEdlmW1ml1LGGuPyW2Nc4TxxMshf?usp=sharing)
 
 ---
