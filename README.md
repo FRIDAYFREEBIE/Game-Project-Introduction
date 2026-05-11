@@ -80,7 +80,6 @@
     <img src="https://img.youtube.com/vi/x2vWr0hS0rk/maxresdefault.jpg" width="500">
   </a>
 </p>
-
-* [Google Drive Resources](https://drive.google.com/drive/folders/1wfMrJEdlmW1ml1LGGuPyW2Nc4TxxMshf?usp=sharing)
+[Google Drive](https://drive.google.com/drive/folders/1wfMrJEdlmW1ml1LGGuPyW2Nc4TxxMshf?usp=sharing)
 
 ---
