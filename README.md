@@ -1,41 +1,86 @@
 # Maurice
 
-### 🎮 청강문화산업대학교 1학년 1학기 게임프로젝트입문 프로젝트
+### 🎮 Freshman First Semester Game Project Introduction
 
 ---
 
-## 📌 **프로젝트 개요**
-- **게임 장르**: 2D 횡스크롤 잠입 액션
-- **개발 기간**: 2025-03-25 ~ 2025-06-02
-- **팀 구성**: 5명 (기획 2명, 프로그래밍 1명, 그래픽 2명)
-- **목표**: 게임 트레일러 및 시연 가능한 프로토타입 제작
+## 📌 Project Overview
+
+* **Game Genre**: 2D Side-Scrolling Stealth Action
+* **Development Period**: 2025-03-25 ~ 2025-06-02
+* **Team Size**: 5 Members (2 Game Designers, 1 Programmer, 2 Artists)
+* **Goal**: To create a playable prototype and game trailer
 
 ---
 
-## 🔑 **주요 기술 사항**
-- **Unity**: 게임 엔진
-- **C#**: 프로그래밍 언어
-- **객체지향 3요소(OOP)**
-  - **캡슐화**: 게임 내 모든 오브젝트에서 레이어를 감지하는 기능이 필요했습니다. 따라서 Detector 클래스로 기능을 분리하여 감지 범위 및 목표 레이어를 원하는대로 지정할 수 있게 설계하였습니다.
-  - **상속**: 감지 했을 때, 감지 당했을 때의 로직을 따로따로 구현하니 코드의 가독성과 확장성이 떨어지는 문제가 발생했습니다. 문제를 해결하기 위해 `ObjectDetectorBase`, `PlayerDetectorBase` 추상 클래스를 만들어 상속받는 방식으로 해결했습니다.
-    - **다형성**: `OnPlayerDetected()`, `OnPlayerExit()` 같은 추상 매서드를 오버라이딩하여 각 객체가 자신만의 로직으로 동작할 수 있습니다.
-- **SOLID 원칙**
-  - **단일 책임 원칙**: 많은 기능(이동, 상호작용 등등)이 들어있는 플레이어를 여러가지 스크립트로 세분화하여 구현하였습니다.
-  - **개방 폐쇄 원칙**: `ObjectDetectorBase`를 기반으로 다양한 감지 시스템(CCTV, SecurityGuard)를 수정 없이 확장 가능한 구조로 설계하였습니다.
-- **싱글톤**: `GameManager`, `TImerManager`같은 많은 코드에서 사용하는 것들을 싱글톤으로 구현하였습니다.
+## 🔑 Key Technologies
+
+* **Unity**
+
+  * Game engine used for gameplay implementation and system development
+
+* **C#**
+
+  * Core programming language used for gameplay and system logic
+
+* **Object-Oriented Programming (OOP)**
+
+  * **Encapsulation**
+
+    * Many game objects required layer detection functionality.
+    * To improve reusability, the detection system was separated into a `Detector` class that allowed customizable detection ranges and target layers.
+
+  * **Inheritance**
+
+    * Implementing separate detection logic for each object reduced readability and scalability.
+    * To solve this problem, abstract base classes such as `ObjectDetectorBase` and `PlayerDetectorBase` were created and inherited by different detector types.
+
+  * **Polymorphism**
+
+    * Abstract methods such as `OnPlayerDetected()` and `OnPlayerExit()` were overridden so that each object could execute its own unique behavior.
+
+* **SOLID Principles**
+
+  * **Single Responsibility Principle**
+
+    * The player system was divided into multiple scripts to separate responsibilities such as movement and interaction.
+
+  * **Open-Closed Principle**
+
+    * Detection systems such as CCTV cameras and security guards were designed to extend from `ObjectDetectorBase` without modifying the existing base structure.
+
+* **Singleton Pattern**
+
+  * Frequently used systems such as `GameManager` and `TimerManager` were implemented using the Singleton pattern.
 
 ---
 
-## 🤔 **느낀점과 배운점**
-- 스파게티 코드를 **정리된 코드로 리팩토링**하며 **객체지향 설계의 중요성**을 느꼈습니다.
-- 클래스 간의 역할을 명확히 나누고 재사용 가능한 구조로 설계함으로써, **유지보수와 확장성**을 고려한 설계를 경험할 수 있었습니다.
-- **“좋은 코드는 바꾸지 않아도 되는 코드”라는 객체지향 규칙**을 실제 구현을 통해 이해할 수 있었다는 것이 제일 큰 배운점 입니다.
-- 기획에게 기능에 대해 **개선점과 궁금증을 물어보며 소통하고**, 아트에게 구현에 필요한** 리소스를 추가로 직접 요청하며** 팀 프로젝트를 진행했습니다.
-- 매주 회의를 진행하며 역할 분담과 소통의 중요성을 다시 한번 체감할 수 있었습니다.
+## 🤔 What I Learned
+
+* Refactoring spaghetti code into a cleaner structure helped me understand the importance of object-oriented design.
+
+* By clearly separating class responsibilities and designing reusable systems, I gained experience building maintainable and scalable code structures.
+
+* The biggest lesson I learned was understanding the object-oriented principle that “good code is code that does not need to be constantly modified.”
+
+* During the project, I actively communicated with game designers by discussing improvements and asking questions about gameplay features.
+
+* I also collaborated closely with artists by requesting additional resources needed for implementation.
+
+* Weekly meetings helped reinforce the importance of role distribution and team communication in collaborative game development.
 
 ---
 
-## 📄 프로젝트 자료
-[구글 드라이브로 이동](https://drive.google.com/drive/folders/1wfMrJEdlmW1ml1LGGuPyW2Nc4TxxMshf?usp=sharing)
+## 📄 Project Resources
+
+### 🎮 Project Video (YouTube)
+
+<p align="center">
+  <a href="https://youtu.be/x2vWr0hS0rk">
+    <img src="https://img.youtube.com/vi/x2vWr0hS0rk/maxresdefault.jpg" width="500">
+  </a>
+</p>
+
+* [Google Drive Resources](https://drive.google.com/drive/folders/1wfMrJEdlmW1ml1LGGuPyW2Nc4TxxMshf?usp=sharing)
 
 ---
